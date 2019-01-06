@@ -1,0 +1,90 @@
+// CONFIG
+@import "config/variables";
+@import "config/mixin";
+// RESET
+@import "reset/normalize";
+@import "reset/formalize";
+// HELPER
+@import "helper/typography";
+@import "helper/global";
+@import "helper/utility";
+@import "helper/form";
+
+
+body{
+    background-color: black
+}
+
+
+.movie-container{
+ background-size: cover;
+     height: 260px;
+}
+
+   .content-movie{
+        height: 100%;}
+
+div[nv-el-current]{
+    
+    .content-movie{
+        height: 100%;
+           /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0+0,0.45+97 */
+background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.45) 97%, rgba(0,0,0,0.45) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.45) 97%,rgba(0,0,0,0.45) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.45) 97%,rgba(0,0,0,0.45) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#73000000',GradientType=0 ); /* IE6-9 */
+    }
+ 
+}
+
+
+#movies-container{
+        padding-right: 3%;
+    padding-left: 3%;
+}
+
+
+.popUpMovie{
+       width: 120%;
+    background: black;
+    height: auto;
+    position: absolute;
+    bottom: 0px;
+    right: -10%;
+    z-index: 100;
+    color: white;
+    padding: 10px;
+   
+}
+
+
+.zoom{
+        transform: scale(1.1);
+        z-index: 1000;
+        
+    border: 0.2em solid white;
+}
+
+.preview-movie{
+           color: white;
+    padding: 2%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    bottom: 0px;
+    position: fixed;
+    z-index: 100000;
+    width: 100%;
+    background: black;
+     
+    span{
+        font-weight: bolder
+    }
+    
+    h1{
+            font-size: 3em;
+                margin-bottom: 2%;
+    }
+    .description{
+        margin-top: 1%
+    }
+}
