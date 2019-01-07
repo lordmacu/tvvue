@@ -152,19 +152,26 @@
             }
         },
         created() {
+            
+            this.getMouseDirection();
              window.addEventListener('keydown', (e) => {
-               alert(e.keyCode);
       if (e.keyCode == 54) {
         this.jumpStep(1)
       }else  if (e.keyCode == 52) {
         this.jumpStep(2)
       }else if (e.keyCode == 56) {
        this.jumpDown();
+      }else if (e.keyCode == 48) {
+       this.jumpDown();
       }else if(e.keyCode == 50){
           this.jumpUp();
       }else if(e.keyCode == 53){
           this.loadVideo();
+      }else if(e.keyCode == 55){
+          this.back();
       }
+      
+      
       
       
       
@@ -223,6 +230,38 @@
 
         },
         methods: {
+            
+            getMouseDirection(e) {
+                
+                var bodyElement = document.querySelector("body");
+                bodyElement.addEventListener("mousemove", getMouseDirection, false);
+
+                var xDirection = "";
+                var yDirection = "";
+
+                var oldX = 0;
+                var oldY = 0;
+                
+                //deal with the horizontal case
+                if (oldX < e.pageX) {
+                    xDirection = "right";
+                } else {
+                    xDirection = "left";
+                }
+
+                //deal with the vertical case
+                if (oldY < e.pageY) {
+                    yDirection = "down";
+                } else {
+                    yDirection = "up";
+                }
+
+                oldX = e.pageX;
+                oldY = e.pageY;
+
+                alert(xDirection + " " + yDirection);
+            },
+            
             fullscreenIframe() {
                 if (this.fullscreenI) {
                     return "fullscreen";
