@@ -483,7 +483,7 @@
             },
             jumpUp() {
                 if (this.jumpValue > 0) {
-                    this.jumpValue = this.jumpValue - 6;
+                    this.jumpValue = this.jumpValue - 4;
                     this.jump("element_" + this.jumpValue);
                     this.preview = this.movies[this.jumpValue];
                 }
@@ -491,7 +491,7 @@
 
             },
             jumpDown() {
-                this.jumpValue = this.jumpValue + 6;
+                this.jumpValue = this.jumpValue + 4;
 
                 this.jump("element_" + this.jumpValue);
                 this.preview = this.movies[this.jumpValue];
