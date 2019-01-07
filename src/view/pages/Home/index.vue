@@ -256,15 +256,19 @@ if (el.requestFullscreen) {
 		// IE 11+
 		el.msRequestFullscreen();
 	} else if (el.webkitRequestFullscreen) {
-                                        alert("aquientro4");
 
 		if (navigator.userAgent.indexOf('Safari') != -1
 				&& navigator.userAgent.indexOf('Chrome') == -1) {
 			// Safari 6+
 			el.webkitRequestFullscreen();
+                        
+                                                                alert("aquientro41");
+
 		} else {
 			// Chrome 20+, Opera 15+, Chrome for Android, Opera Mobile 16+
 			el.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+                                                                                        alert("aquientro42");
+
 		}
 	} else if (el.webkitRequestFullScreen) {
                                                     alert("aquientro5");
