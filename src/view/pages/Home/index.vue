@@ -153,10 +153,21 @@
         },
         created() {
              window.addEventListener('keydown', (e) => {
-                 alert(e.keyCode);
-      if (e.key == 'Escape') {
-        this.showModal = !this.showModal;
+               
+      if (e.keyCode == 54) {
+        this.jumpStep(1)
+      }else  if (e.keyCode == 52) {
+        this.jumpStep(2)
+      }else if (e.keyCode == 56) {
+       this.jumpDown();
+      }else if(e.keyCode == 50){
+          this.jumpUp();
+      }else if(e.keyCode == 53){
+          this.loadVideo();
       }
+      
+      
+      
     });
             
 
