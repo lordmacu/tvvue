@@ -233,7 +233,7 @@
         methods: {
             
              isSmartTV() {
-                    return Modernizr.websockets === false;
+                    return navigator.userAgent.search(/TV/i) >= 0;
                 },
 
             getMouseDirection(e) {
