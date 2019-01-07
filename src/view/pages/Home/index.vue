@@ -165,10 +165,10 @@
                 }
             },
             overmouse(movie, index) {
-                /* for(var l = 0; l < this.movies.length; l++){
+                 for(var l = 0; l < this.movies.length; l++){
                  this.movies[l].current=false;
                  }
-                 movie.current=true;*/
+                 movie.current=true;
 
             },
             overClick(movie, index) {
