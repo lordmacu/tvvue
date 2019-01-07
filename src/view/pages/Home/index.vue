@@ -152,6 +152,13 @@
             }
         },
         created() {
+             window.addEventListener('keydown', (e) => {
+                 alert(e.keyCode);
+      if (e.key == 'Escape') {
+        this.showModal = !this.showModal;
+      }
+    });
+            
 
             document.onkeydown = function (evt) {
                 evt = evt || window.event;

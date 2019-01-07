@@ -1,10 +1,3 @@
-# Vue Starter Kit
-
-- :speech_balloon: multi-language support 
-- :warning: form validations ready (https://github.com/baianat/vee-validate)
-- :scissors: input mask (https://github.com/vuejs-tips/vue-the-mask)
-- :truck: state management with vuex
-- :link: router management
 
 ## Build Setup
 
