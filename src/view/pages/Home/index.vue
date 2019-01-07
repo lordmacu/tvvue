@@ -148,13 +148,19 @@
                 paginator: 1,
                 category: 0,
                 searchText: null,
-                fullscreenI: false
+                fullscreenI: false,
+                oldX:0,
+                oldY:0
             }
         },
         created() {
             if(this.isSmartTV()){
-                this.getMouseDirection();
             }
+            
+
+ var bodyElement = document.querySelector("body");
+                bodyElement.addEventListener("mousemove", this.captureMouseMove, false);
+
              window.addEventListener('keydown', (e) => {
       if (e.keyCode == 54) {
         this.jumpStep(1)
@@ -236,36 +242,38 @@
                     return navigator.userAgent.search(/TV/i) >= 0;
                 },
 
-            getMouseDirection(e) {
-                
-                var bodyElement = document.querySelector("body");
-                bodyElement.addEventListener("mousemove", getMouseDirection, false);
+            captureMouseMove($event){
+      let directionX = 0, directionY = 0, diffX = 0, diffY = 0;
+      if ($event.pageX < this.oldX) {
+          directionX = "left"
+          diffX = this.oldX - $event.pageX;
+      } else if ($event.pageX > this.oldX) {
+          directionX = "right"
+          diffX = $event.pageX - this.oldX;
+      }
 
-                var xDirection = "";
-                var yDirection = "";
+      if ($event.pageY < this.oldY) {
+          directionY = "top"
+          diffY = this.oldY - $event.pageY;
+      } else if ($event.pageY > this.oldY) {
+          directionY = "bottom";
+          diffY = $event.pageY - this.oldY;
+      }
 
-                var oldX = 0;
-                var oldY = 0;
-                
-                //deal with the horizontal case
-                if (oldX < e.pageX) {
-                    xDirection = "right";
-                } else {
-                    xDirection = "left";
-                }
+      this.oldX = $event.pageX;
+      this.oldY = $event.pageY;
+      
+      if(directionX=="left"){
+          this.jumpStep(2) 
+      }else  if(directionX=="right"){
+          this.jumpStep(1) 
+      }else  if(directionX=="top"){
+          this.jumpUp() 
+      }else  if(directionX=="down"){
+          this.jumpDown() 
+      }
 
-                //deal with the vertical case
-                if (oldY < e.pageY) {
-                    yDirection = "down";
-                } else {
-                    yDirection = "up";
-                }
-
-                oldX = e.pageX;
-                oldY = e.pageY;
-
-                alert(xDirection + " " + yDirection);
-            },
+    },
             
             fullscreenIframe() {
                 if (this.fullscreenI) {
