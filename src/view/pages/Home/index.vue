@@ -235,63 +235,7 @@
               //  this.fullscreenI=true;
               
               
-              try {
 
-      var el = document.documentElement;
-if (el.requestFullscreen) {
-    
-    alert("aquientro1");
-
-		// W3C standard
-		el.requestFullscreen();
-	} else if (el.mozRequestFullScreen) {
-            
-                alert("aquientro2");
-
-		// Firefox 10+, Firefox for Android
-		el.mozRequestFullScreen();
-	} else if (el.msRequestFullscreen) {
-                            alert("aquientro3");
-
-		// IE 11+
-		el.msRequestFullscreen();
-	} else if (el.webkitRequestFullscreen) {
-
-		if (navigator.userAgent.indexOf('Safari') != -1
-				&& navigator.userAgent.indexOf('Chrome') == -1) {
-			// Safari 6+
-			el.webkitRequestFullscreen();
-                        
-                                                                alert("aquientro41");
-
-		} else {
-			// Chrome 20+, Opera 15+, Chrome for Android, Opera Mobile 16+
-                        el.msRequestFullscreen();
-                        el.webkitRequestFullScreen();
-
-			el.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-
-
-		}
-	} else if (el.webkitRequestFullScreen) {
-                                                    alert("aquientro5");
-
-		if (navigator.userAgent.indexOf('Safari') != -1
-				&& navigator.userAgent.indexOf('Chrome') == -1) {
-			// Safari 5.1+
-			el.webkitRequestFullScreen();
-		} else {
-			// Chrome 15+
-			el.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
-		}
-	}  
-
-
-}
-catch(err) {
-alert( err.message);
-        }
-            
         
             },
             searchMovie(){
