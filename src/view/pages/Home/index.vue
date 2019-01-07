@@ -4,7 +4,7 @@
 
 
 
-    <div >
+    <div class="container-fluid" >
 
 
         <div class="preview-movie" v-if="preview">
