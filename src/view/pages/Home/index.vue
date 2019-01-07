@@ -153,7 +153,7 @@
         },
         created() {
              window.addEventListener('keydown', (e) => {
-               
+               alert(e.keyCode);
       if (e.keyCode == 54) {
         this.jumpStep(1)
       }else  if (e.keyCode == 52) {
