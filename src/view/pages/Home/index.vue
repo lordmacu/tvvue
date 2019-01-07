@@ -450,6 +450,8 @@
                  
                  movie.current = true;*/
                 this.preview = movie;
+                
+                this.loadVideo();
             },
             jumpUp() {
                 if (this.jumpValue > 0) {
