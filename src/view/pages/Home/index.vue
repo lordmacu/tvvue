@@ -38,9 +38,7 @@
 
         </div>
 
-        <popover name="moviepop">
-            Hello 🎉
-        </popover>
+        <div class="spaceload"></div>
     </div>
 
 </template>
@@ -134,7 +132,8 @@
                         infoTime: infoTime,
                         infoQlty: infoQlty,
                         description: description,
-                        current: false
+                        current: false,
+                        index:i
                     });
 
                 }
@@ -158,27 +157,27 @@
         },
         methods: {
             checkZoom(movie){
-                if(movie.current){
+                if(movie.index==this.preview.index){
                     return "col-2 movie-container  zoom";
                 }else{
                     return "col-2 movie-container";
                 }
             },
             overmouse(movie, index) {
-                 for(var l = 0; l < this.movies.length; l++){
+                /* for(var l = 0; l < this.movies.length; l++){
                  this.movies[l].current=false;
                  }
-                 movie.current=true;
+                 movie.current=true;*/
                 this.preview=movie;
 
             },
             overClick(movie, index) {
 
-                for (var l = 0; l < this.movies.length; l++) {
+               /* for (var l = 0; l < this.movies.length; l++) {
                     this.movies[l].current = false;
                 }
 
-                movie.current = true;
+                movie.current = true;*/
                 this.preview=movie;
             },
             jump(h) {
