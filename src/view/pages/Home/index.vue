@@ -111,9 +111,14 @@
                     <div class="row">
                        
                     <div class="col-12 container-video-frame" >
-                        <iframe id="myvideo" :class="fullscreenIframe()" width="100%" height="500" :data-src="frameVideo" :src="frameVideo" frameborder="0" allowFullScreen></iframe>
-                   <hr/>
-                   <button v-if="!fullscreenI" v-on:click="fullscreen" class="btn btn-default btn-light">FullScreen</button>            
+                            <fullscreen :fullscreen.sync="fullscreen" ref="fullscreen">
+
+                                <iframe id="myvideo" :class="fullscreenIframe()" width="100%" height="500" :data-src="frameVideo" :src="frameVideo" frameborder="0" allowFullScreen></iframe>
+                            </fullscreen>
+                        
+                        
+                        <hr/>
+                   <button v-if="!fullscreenI" v-on:click="fullscreens" class="btn btn-default btn-light">FullScreen</button>            
 
                     </div>
                     </div>
@@ -148,7 +153,8 @@
                 paginator:1,
                 category:0,
                 searchText:null,
-                fullscreenI:false
+                fullscreenI:false,
+                fullscreen: false
             }
         },
         created() {
@@ -231,7 +237,9 @@
                     return "fullscreen";
                 }
             },
-            fullscreen(){
+            fullscreens(){
+                this.$refs['fullscreen'].toggle()
+                return false;
               //  this.fullscreenI=true;
               
               

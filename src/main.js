@@ -1,3 +1,5 @@
+ import fullscreen from 'vue-fullscreen'
+
 import Vue from 'vue'
 import App from './App'
 import router from './router'
@@ -19,6 +21,9 @@ Vue.use(VueScrollTo)
   import Popover  from 'vue-js-popover'
  
     Vue.use(Popover)
+
+  Vue.use(fullscreen)
+
 
 Vue.use(smart)
 
