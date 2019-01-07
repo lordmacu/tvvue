@@ -157,7 +157,7 @@
         created() {
             if(this.isSmartTV()){
                  var bodyElement = document.querySelector("body");
-                bodyElement.addEventListener("mousemove", this.captureMouseMove, false);
+                //bodyElement.addEventListener("mousemove", this.captureMouseMove, false);
             
             }
             
