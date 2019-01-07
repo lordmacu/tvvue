@@ -7,16 +7,38 @@
     <div class="container-fluid" >
 
 
-        <div class="preview-movie" v-if="preview">
-            <div  class="controls">
-                <button v-on:click="jumpDown()">Abajo</button>
-                <button v-on:click="jumpUp()"  v-if="jumpValue>0">Arriba</button>
-            </div>
-            <h1>{{preview.title}}</h1>
+        <div class="preview-movie row" v-if="preview">
+            <div class="col-lg-7">
+                 <h1>{{preview.title}}</h1>
             <span>Año - {{preview.year}}</span> - 
             <span>Duración - {{preview.infoTime}}</span> - 
             <span>Calidad - {{preview.infoQlty}}</span> 
             <p v-html="preview.description"></p>
+            </div>
+            
+            <div  class="controls col-lg-5">
+                <table>
+                    <tr>
+                        <td></td>
+                        <td><button v-on:click="jumpUp()"  >Arriba</button></td>
+                        <td></td>
+                    </tr>
+                     <tr>
+                        <td><button v-on:click="jumpStep(2)" >Derecha</button></td>
+                        <td class="container-play"><button class="play-button" v-on:click="jumpUp()" >Play</button></td>
+                        <td><button v-on:click="jumpStep(1)" >Izquierda</button></td>
+                    </tr>
+                     <tr>
+                        <td></td>
+                        <td> <button v-on:click="jumpDown()">Abajo</button></td>
+                        <td></td>
+                    </tr>
+                </table>
+                
+                
+            </div>
+            
+           
         </div>
 
         <div  id="movies-container"  nv-scope="menu" class="row movies-container" nv-scope-current v-if='movies.length>0'>
@@ -56,7 +78,8 @@
             return {
                 movies: [],
                 preview:null,
-                jumpValue:0
+                jumpValue:0,
+                jumpStepValue:0
             }
         },
         created() {
@@ -161,6 +184,22 @@
 
         },
         methods: {
+            jumpStep(step){
+                if(step==1){
+                    
+                    this.jumpStepValue=this.preview.index+1;
+                }else{
+                    if(this.jumpStepValue>0){
+                        this.jumpStepValue=this.preview.index-1;
+                    }
+                }
+                
+                
+                
+                this.jump("element_" + this.jumpStepValue);
+                    this.preview=this.movies[this.jumpStepValue];
+                
+            },
             checkZoom(movie){
                 if(movie.index==this.preview.index){
                     return "col-2 movie-container  zoom";
@@ -186,12 +225,12 @@
                 this.preview=movie;
             },
             jumpUp(){
-                
-                this.jumpValue=this.jumpValue-6;
-                console.log(this.jumpValue+" jump carnal");
-
+                if(this.jumpValue>0){
+                    this.jumpValue=this.jumpValue-6;
                  this.jump("element_" + this.jumpValue);
                     this.preview=this.movies[this.jumpValue];
+                }
+                
                 
             },
             jumpDown(){
