@@ -233,14 +233,17 @@
             },
             fullscreen(){
                 this.fullscreenI=true;
-                 var
-          el = document.documentElement
-        , rfs =
-               el.requestFullScreen
-            || el.webkitRequestFullScreen
-            || el.mozRequestFullScreen
-    ;
-    rfs.call(el);  
+               
+         var doc = window.document;
+  var docEl = doc.documentElement;
+
+  var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+  var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+
+    requestFullScreen.call(docEl);
+ 
+        
+        
             },
             searchMovie(){
                 
