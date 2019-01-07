@@ -93,3 +93,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
 .spaceload{
     height: 80vh;
 }
+
+.controls{
+    button{
+           width: 120px !important;
+    height: 40px;
+    float: right;
+    margin-right: 10px;
+    }
+}

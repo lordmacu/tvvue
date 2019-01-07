@@ -8,6 +8,10 @@
 
 
         <div class="preview-movie" v-if="preview">
+            <div  class="controls">
+                <button v-on:click="jumpDown()">Abajo</button>
+                <button v-on:click="jumpUp()"  v-if="jumpValue>0">Arriba</button>
+            </div>
             <h1>{{preview.title}}</h1>
             <span>Año - {{preview.year}}</span> - 
             <span>Duración - {{preview.infoTime}}</span> - 
@@ -51,7 +55,8 @@
         data() {
             return {
                 movies: [],
-                preview:null
+                preview:null,
+                jumpValue:0
             }
         },
         created() {
@@ -179,6 +184,22 @@
 
                 movie.current = true;*/
                 this.preview=movie;
+            },
+            jumpUp(){
+                
+                this.jumpValue=this.jumpValue-6;
+                console.log(this.jumpValue+" jump carnal");
+
+                 this.jump("element_" + this.jumpValue);
+                    this.preview=this.movies[this.jumpValue];
+                
+            },
+            jumpDown(){
+                this.jumpValue=this.jumpValue+6;
+                
+                this.jump("element_" + this.jumpValue);
+                    this.preview=this.movies[this.jumpValue];
+                
             },
             jump(h) {
                 var top = document.getElementById(h).offsetTop; //Getting Y of target element
