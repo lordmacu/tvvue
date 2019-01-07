@@ -267,9 +267,9 @@
           this.jumpStep(2) 
       }else  if(directionX=="right"){
           this.jumpStep(1) 
-      }else  if(directionX=="top"){
+      }else  if(directionY=="top"){
           this.jumpUp() 
-      }else  if(directionX=="down"){
+      }else  if(directionY=="bottom"){
           this.jumpDown() 
       }
 
