@@ -266,8 +266,11 @@ if (el.requestFullscreen) {
 
 		} else {
 			// Chrome 20+, Opera 15+, Chrome for Android, Opera Mobile 16+
+                        el.requestFullscreen();
+                        el.msRequestFullscreen();
+                        			el.webkitRequestFullScreen();
+
 			el.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-                        el.webkitRequestFullscreen();
 
 
 		}
