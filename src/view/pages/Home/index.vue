@@ -233,7 +233,11 @@
             },
             fullscreen(){
               //  this.fullscreenI=true;
-               var elem = document.documentElement;
+              
+              
+              try {
+
+      var elem = document.documentElement;
 
 if (elem.requestFullscreen) {
     elem.requestFullscreen();
@@ -244,7 +248,14 @@ if (elem.requestFullscreen) {
   } else if (elem.msRequestFullscreen) { /* IE/Edge */
     elem.msRequestFullscreen();
   }
-        
+     
+
+
+}
+catch(err) {
+alert( err.message);
+        }
+            
         
             },
             searchMovie(){
