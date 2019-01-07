@@ -169,6 +169,7 @@
                  this.movies[l].current=false;
                  }
                  movie.current=true;
+                this.preview=movie;
 
             },
             overClick(movie, index) {
@@ -178,6 +179,7 @@
                 }
 
                 movie.current = true;
+                this.preview=movie;
             },
             jump(h) {
                 var top = document.getElementById(h).offsetTop; //Getting Y of target element
