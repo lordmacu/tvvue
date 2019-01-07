@@ -111,14 +111,9 @@
                     <div class="row">
                        
                     <div class="col-12 container-video-frame" >
-                            <fullscreen :fullscreen.sync="fullscreen" ref="fullscreen">
-
-                                <iframe id="myvideo" :class="fullscreenIframe()" width="100%" height="500" :data-src="frameVideo" :src="frameVideo" frameborder="0" allowFullScreen></iframe>
-                            </fullscreen>
-                        
-                        
-                        <hr/>
-                   <button v-if="!fullscreenI" v-on:click="fullscreens" class="btn btn-default btn-light">FullScreen</button>            
+                        <iframe id="myvideo" :class="fullscreenIframe()" width="100%" height="500" :data-src="frameVideo" :src="frameVideo" frameborder="0" allowfullscreen="true"></iframe>
+                   <hr/>
+                   <button v-if="!fullscreenI" v-on:click="fullscreen" class="btn btn-default btn-light">FullScreen</button>            
 
                     </div>
                     </div>
@@ -153,15 +148,22 @@
                 paginator:1,
                 category:0,
                 searchText:null,
-                fullscreenI:false,
-                fullscreen: false
+                fullscreenI:false
             }
         },
         created() {
             
          document.onkeydown = function(evt) {
     evt = evt || window.event;
-    alert(evt.keyCode);
+    var isEscape = false;
+    if ("key" in evt) {
+        isEscape = (evt.key == "Escape" || evt.key == "Esc");
+    } else {
+        isEscape = (evt.keyCode == 27);
+    }
+    if (isEscape) {
+        alert("Escape");
+    }
 };   
             /*
              setInterval(() => {
@@ -229,13 +231,31 @@
                     return "fullscreen";
                 }
             },
-            fullscreens(){
-                this.$refs['fullscreen'].toggle()
-                return false;
-              //  this.fullscreenI=true;
+            fullscreen(){
+                this.fullscreenI=true;
               
               
+              try {
 
+      var elem = document.documentElement;
+
+if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.mozRequestFullScreen) { /* Firefox */
+    elem.mozRequestFullScreen();
+  } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { /* IE/Edge */
+    elem.msRequestFullscreen();
+  }
+     
+
+
+}
+catch(err) {
+alert( err.message);
+        }
+            
         
             },
             searchMovie(){
