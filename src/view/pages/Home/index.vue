@@ -277,7 +277,7 @@ if (el.requestFullscreen) {
 			// Chrome 15+
 			el.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
 		}
-	}
+	}  
 
 
 }
