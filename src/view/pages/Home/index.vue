@@ -152,8 +152,9 @@
             }
         },
         created() {
-            
-            this.getMouseDirection();
+            if(this.isSmartTV()){
+                this.getMouseDirection();
+            }
              window.addEventListener('keydown', (e) => {
       if (e.keyCode == 54) {
         this.jumpStep(1)
@@ -231,6 +232,10 @@
         },
         methods: {
             
+             isSmartTV() {
+                    return Modernizr.websockets === false;
+                },
+
             getMouseDirection(e) {
                 
                 var bodyElement = document.querySelector("body");
