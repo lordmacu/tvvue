@@ -238,8 +238,11 @@
               try {
 
       var el = document.documentElement;
-
+alert("aqui");
 if (el.requestFullscreen) {
+    
+    alert("aqui");
+
 		// W3C standard
 		el.requestFullscreen();
 	} else if (el.mozRequestFullScreen) {
