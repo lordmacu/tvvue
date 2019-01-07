@@ -112,5 +112,38 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
 
  
 .description-container-movie{
-    margin-top: 30px
+       margin-top: 30px;
+    height: 440px;
+    overflow-y: auto;
+}
+
+.container-video{
+        width: 100%;
+    background-color: black;
+    height: 100%;
+    position: absolute;
+    top: 0;
+        z-index: 1000000;
+        
+    padding: 30px;
+        div{
+
+        }
+}
+
+.container-button-video{
+    padding-bottom: 10px
+}
+
+
+.load-more-container{
+        padding: 30px;
+    text-align: center;
+    button{
+        
+    }
+}
+
+.container-categories{
+        padding: 30px;
 }
