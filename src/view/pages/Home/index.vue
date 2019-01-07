@@ -6,63 +6,74 @@
 
     <div class="container-fluid" >
 
+        <div class="row">
+            <div class="col-3">
+                <div class="preview-movie row" v-if="preview">
 
-        <div class="preview-movie row" v-if="preview">
-            <div class="col-lg-7">
-                 <h1>{{preview.title}}</h1>
-            <span>Año - {{preview.year}}</span> - 
-            <span>Duración - {{preview.infoTime}}</span> - 
-            <span>Calidad - {{preview.infoQlty}}</span> 
-            <p v-html="preview.description"></p>
+                    <div  class="controls col-lg-12">
+                        <table>
+                            <tr>
+                                <td></td>
+                                <td><button v-on:click="jumpUp()"  >Arriba</button></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><button v-on:click="jumpStep(2)" >Izquierda</button></td>
+                                <td class="container-play"><button class="play-button" v-on:click="jumpUp()" >Play</button></td>
+                                <td><button v-on:click="jumpStep(1)" > Derecha</button></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td> <button v-on:click="jumpDown()">Abajo</button></td>
+                                <td></td>
+                            </tr>
+                        </table>
+
+
+                    </div>
+
+
+                    <div class="col-lg-12 description-container-movie">
+                        <h1>{{preview.title}}</h1>
+                        <span>Año - {{preview.year}}</span> - 
+                        <span>Duración - {{preview.infoTime}}</span> - 
+                        <span>Calidad - {{preview.infoQlty}}</span> 
+                        <p v-html="preview.description"></p>
+                    </div>
+
+
+
+                </div>
             </div>
-            
-            <div  class="controls col-lg-5">
-                <table>
-                    <tr>
-                        <td></td>
-                        <td><button v-on:click="jumpUp()"  >Arriba</button></td>
-                        <td></td>
-                    </tr>
-                     <tr>
-                        <td><button v-on:click="jumpStep(2)" >Izquierda</button></td>
-                        <td class="container-play"><button class="play-button" v-on:click="jumpUp()" >Play</button></td>
-                        <td><button v-on:click="jumpStep(1)" > Derecha</button></td>
-                    </tr>
-                     <tr>
-                        <td></td>
-                        <td> <button v-on:click="jumpDown()">Abajo</button></td>
-                        <td></td>
-                    </tr>
-                </table>
-                
-                
+
+            <div class="col-lg-9">
+                <div  id="movies-container"  nv-scope="menu" class="row movies-container" nv-scope-current v-if='movies.length>0'>
+                    <div nv-el  nv-el-current :class="checkZoom(movies[0])" v-popover:tooltip="'This is a string value'"  v-on:click="overClick(movies[0],0)"  :name="'element_'+0" :id="'element_'+0" :datai="0"  :style="'background-image:url('+movies[0].image+')'" >
+
+                         <div class="content-movie row"  >
+                            ss  {{movies[0].current}}
+                        </div>
+
+                    </div>
+
+
+                    <div v-for="(movie,index) in movies"  :class="checkZoom(movie)" :name="'element_'+index" v-popover:tooltip="'This is a string value'"  v-on:click="overClick(movie,index)"  v-if="index!=0"  :id="'element_'+index"    :datai="index"   nv-el  class="col-2 movie-container" :style="'background-image:url('+movie.image+')'" >
+                        <div class="content-movie row ss">
+                            ss {{movie.current}}
+                        </div>
+
+
+
+
+
+                    </div>
+
+                </div>
             </div>
-            
-           
         </div>
 
-        <div  id="movies-container"  nv-scope="menu" class="row movies-container" nv-scope-current v-if='movies.length>0'>
-            <div nv-el  nv-el-current :class="checkZoom(movies[0])" v-popover:tooltip="'This is a string value'" v-on:mouseover="overmouse(movies[0],0)" v-on:click="overClick(movies[0],0)"  :name="'element_'+0" :id="'element_'+0" :datai="0"  :style="'background-image:url('+movies[0].image+')'" >
-
-                <div class="content-movie row"  >
-                    ss  {{movies[0].current}}
-                </div>
-
-            </div>
 
 
-            <div v-for="(movie,index) in movies"  :class="checkZoom(movie)" :name="'element_'+index" v-popover:tooltip="'This is a string value'" v-on:mouseover="overmouse(movie,index)"  v-on:click="overClick(movie,index)"  v-if="index!=0"  :id="'element_'+index"    :datai="index"   nv-el  class="col-2 movie-container" :style="'background-image:url('+movie.image+')'" >
-                <div class="content-movie row ss">
-                    ss {{movie.current}}
-                </div>
-
-               
-
-
-
-            </div>
-
-        </div>
 
         <div class="spaceload"></div>
     </div>
@@ -77,9 +88,9 @@
         data() {
             return {
                 movies: [],
-                preview:null,
-                jumpValue:0,
-                jumpStepValue:0
+                preview: null,
+                jumpValue: 0,
+                jumpStepValue: 0
             }
         },
         created() {
@@ -140,7 +151,7 @@
 
                 var responseHtml = $(response.data);
                 var listMovies = responseHtml.find(".MovieList li");
-                
+
                 for (var i = 0; i < listMovies.length; i++) {
                     var item = $(listMovies[i]);
                     var link = item.find("a").attr("href");
@@ -161,12 +172,12 @@
                         infoQlty: infoQlty,
                         description: description,
                         current: false,
-                        index:i
+                        index: i
                     });
 
                 }
-                
-                this.preview=this.movies[0];
+
+                this.preview = this.movies[0];
 
                 setTimeout(function () {
                     navigation.refresh();
@@ -184,27 +195,27 @@
 
         },
         methods: {
-            jumpStep(step){
-                if(step==1){
-                    
-                    this.jumpValue=this.preview.index+1;
-                }else{
-                    if(this.jumpValue>0){
-                        this.jumpValue=this.preview.index-1;
+            jumpStep(step) {
+                if (step == 1) {
+
+                    this.jumpValue = this.preview.index + 1;
+                } else {
+                    if (this.jumpValue > 0) {
+                        this.jumpValue = this.preview.index - 1;
                     }
                 }
-                
-                
-                
+
+
+
                 this.jump("element_" + this.jumpValue);
-                this.preview=this.movies[this.jumpValue];
-                
+                this.preview = this.movies[this.jumpValue];
+
             },
-            checkZoom(movie){
-                if(movie.index==this.preview.index){
-                    return "col-2 movie-container  zoom";
-                }else{
-                    return "col-2 movie-container";
+            checkZoom(movie) {
+                if (movie.index == this.preview.index) {
+                    return "col-3 movie-container  zoom";
+                } else {
+                    return "col-3 movie-container";
                 }
             },
             overmouse(movie, index) {
@@ -212,33 +223,33 @@
                  this.movies[l].current=false;
                  }
                  movie.current=true;*/
-                this.preview=movie;
+                this.preview = movie;
 
             },
             overClick(movie, index) {
 
-               /* for (var l = 0; l < this.movies.length; l++) {
-                    this.movies[l].current = false;
+                /* for (var l = 0; l < this.movies.length; l++) {
+                 this.movies[l].current = false;
+                 }
+                 
+                 movie.current = true;*/
+                this.preview = movie;
+            },
+            jumpUp() {
+                if (this.jumpValue > 0) {
+                    this.jumpValue = this.jumpValue - 6;
+                    this.jump("element_" + this.jumpValue);
+                    this.preview = this.movies[this.jumpValue];
                 }
 
-                movie.current = true;*/
-                this.preview=movie;
+
             },
-            jumpUp(){
-                if(this.jumpValue>0){
-                    this.jumpValue=this.jumpValue-6;
-                 this.jump("element_" + this.jumpValue);
-                    this.preview=this.movies[this.jumpValue];
-                }
-                
-                
-            },
-            jumpDown(){
-                this.jumpValue=this.jumpValue+6;
-                
+            jumpDown() {
+                this.jumpValue = this.jumpValue + 6;
+
                 this.jump("element_" + this.jumpValue);
-                    this.preview=this.movies[this.jumpValue];
-                
+                this.preview = this.movies[this.jumpValue];
+
             },
             jump(h) {
                 var top = document.getElementById(h).offsetTop; //Getting Y of target element
@@ -259,7 +270,7 @@
 
                 if (this.movies[current]) {
                     this.movies[current].current = true;
-                    this.preview=this.movies[current];
+                    this.preview = this.movies[current];
                     if (anchor) {
                         this.jump("element_" + current);
                     }
