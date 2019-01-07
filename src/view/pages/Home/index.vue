@@ -10,7 +10,7 @@
             <div class="col-3">
                 <div class="preview-movie row" v-if="preview">
 
-                    <div  class="controls col-lg-12">
+                    <div  class="controls col-lg-12 d-none d-sm-block">
                         <table>
                             <tr>
                                 <td></td>
@@ -60,15 +60,17 @@
                     
                     <div class="col-12 container-categories">
                         <div class="row">
-                            <div class="col-7">
+                            <div class="col-12 col-md-7 col-lg-7">
                                 <button class="btn btn-default btn-light" v-on:click="latest()" >Últimas</button>
                         <button class="btn btn-default btn-light" v-on:click="newMovies()">Estrenos</button>
                         <button class="btn btn-default btn-light" v-on:click="ranking()">Ranking</button>
                         <button class="btn btn-default btn-light" v-on:click="popular()">Mas vistas</button>
-                        
+
                             </div>
                             
-                            <div class="col-5">
+                            <div class="col-12 col-md-5 col-lg-5">
+                                                                                            <br/>
+
                                 <div class="input-group mb-3">
                                     <input type="text" v-model="searchText" class="form-control" placeholder="Buscar por nombre">
 
@@ -91,7 +93,7 @@
                     </div>
 
 
-                    <div v-for="(movie,index) in movies"  :class="checkZoom(movie)" :name="'element_'+index"  v-on:click="overClick(movie,index)"  v-if="index!=0"  :id="'element_'+index"    :datai="index"   nv-el  class="col-2 movie-container" :style="'background-image:url('+movie.image+')'" >
+                    <div v-for="(movie,index) in movies"  :class="checkZoom(movie)" :name="'element_'+index"  v-on:click="overClick(movie,index)"  v-if="index!=0"  :id="'element_'+index"    :datai="index"   nv-el  :style="'background-image:url('+movie.image+')'" >
                         <div class="content-movie row ss">
                             {{movie.infoQlty}}
                         </div>
@@ -110,6 +112,9 @@
                        
                     <div class="col-12 container-video-frame" >
                         <iframe class="iframex no-you" width="100%" height="500" :data-src="frameVideo" :src="frameVideo" frameborder="0" allowfullscreen=""></iframe>
+                   <hr/>
+                   <button v-on:click="fullscreen">FullScreen</button>            
+
                     </div>
                     </div>
                     
@@ -207,6 +212,16 @@
 
         },
         methods: {
+            fullscreen(){
+                 var
+          el = document.documentElement
+        , rfs =
+               el.requestFullScreen
+            || el.webkitRequestFullScreen
+            || el.mozRequestFullScreen
+    ;
+    rfs.call(el);  
+            },
             searchMovie(){
                 
                 this.paginator=1;
@@ -429,9 +444,9 @@
             },
             checkZoom(movie) {
                 if (movie.index == this.preview.index) {
-                    return "col-3 movie-container  zoom";
+                    return "col-md-3 col-lg-3 col-12 movie-container  zoom";
                 } else {
-                    return "col-3 movie-container";
+                    return "col-md-3 col-lg-3 col-12 movie-container";
                 }
             },
             overmouse(movie, index) {
