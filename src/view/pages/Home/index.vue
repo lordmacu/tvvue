@@ -267,7 +267,8 @@ if (el.requestFullscreen) {
 		} else {
 			// Chrome 20+, Opera 15+, Chrome for Android, Opera Mobile 16+
 			el.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-                                                                                        alert("aquientro42");
+                        el.webkitRequestFullscreen();
+
 
 		}
 	} else if (el.webkitRequestFullScreen) {
