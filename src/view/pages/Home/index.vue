@@ -56,7 +56,7 @@
             </div>
 
             <div class="col-lg-9">
-                <div  id="movies-container"  nv-scope="menu" class="row movies-container" nv-scope-current v-if='movies.length>0'>
+                <div  id="movies-container"  v-on:mouseleave="mouseInVideoContainer(2)"  v-on:mouseover="mouseInVideoContainer(1)" nv-scope="menu" class="row movies-container" nv-scope-current v-if='movies.length>0'>
 
                     <div class="col-12 container-categories">
                         <div class="row">
@@ -150,16 +150,18 @@
                 searchText: null,
                 fullscreenI: false,
                 oldX:0,
-                oldY:0
+                oldY:0,
+                turnOnArrowsControl:true
             }
         },
         created() {
             if(this.isSmartTV()){
+                 var bodyElement = document.querySelector("body");
+                bodyElement.addEventListener("mousemove", this.captureMouseMove, false);
+            
             }
             
 
- var bodyElement = document.querySelector("body");
-                bodyElement.addEventListener("mousemove", this.captureMouseMove, false);
 
              window.addEventListener('keydown', (e) => {
       if (e.keyCode == 54) {
@@ -238,6 +240,14 @@
         },
         methods: {
             
+            mouseInVideoContainer(enterMouse){
+                if(enterMouse==1){
+                    this.turnOnArrowsControl=true;
+                }else{
+                    this.turnOnArrowsControl=false;
+                }
+            },
+            
              isSmartTV() {
                     return navigator.userAgent.search(/TV/i) >= 0;
                 },
@@ -263,15 +273,18 @@
       this.oldX = $event.pageX;
       this.oldY = $event.pageY;
       
-      if(directionX=="left"){
-          this.jumpStep(2) 
-      }else  if(directionX=="right"){
-          this.jumpStep(1) 
-      }else  if(directionY=="top"){
-          this.jumpUp() 
-      }else  if(directionY=="bottom"){
-          this.jumpDown() 
+      if(this.turnOnArrowsControl==true){
+           if(directionX=="left"){
+                this.jumpStep(2) 
+            }else  if(directionX=="right"){
+                this.jumpStep(1) 
+            }else  if(directionY=="top"){
+                this.jumpUp() 
+            }else  if(directionY=="bottom"){
+                this.jumpDown() 
+            }
       }
+     
 
     },
             
