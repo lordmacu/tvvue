@@ -187,17 +187,17 @@
             jumpStep(step){
                 if(step==1){
                     
-                    this.jumpStepValue=this.preview.index+1;
+                    this.jumpValue=this.preview.index+1;
                 }else{
-                    if(this.jumpStepValue>0){
-                        this.jumpStepValue=this.preview.index-1;
+                    if(this.jumpValue>0){
+                        this.jumpValue=this.preview.index-1;
                     }
                 }
                 
                 
                 
-                this.jump("element_" + this.jumpStepValue);
-                    this.preview=this.movies[this.jumpStepValue];
+                this.jump("element_" + this.jumpValue);
+                this.preview=this.movies[this.jumpValue];
                 
             },
             checkZoom(movie){
