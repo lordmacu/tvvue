@@ -7,7 +7,7 @@
     <div class="container-fluid" >
 
         <div class="row">
-            <div class="col-3">
+            <div class="col-3" v-if="!fullscreenI">
                 <div class="preview-movie row" v-if="preview">
 
                     <div  class="controls col-lg-12 d-none d-sm-block">
@@ -111,9 +111,9 @@
                     <div class="row">
                        
                     <div class="col-12 container-video-frame" >
-                        <iframe class="iframex no-you" width="100%" height="500" :data-src="frameVideo" :src="frameVideo" frameborder="0" allowfullscreen=""></iframe>
+                        <iframe :class="fullscreenIframe()" width="100%" height="500" :data-src="frameVideo" :src="frameVideo" frameborder="0" allowfullscreen=""></iframe>
                    <hr/>
-                   <button v-on:click="fullscreen">FullScreen</button>            
+                   <button v-if="!fullscreenI" v-on:click="fullscreen" class="btn btn-default btn-light">FullScreen</button>            
 
                     </div>
                     </div>
@@ -147,10 +147,24 @@
                 frameVideo:null,
                 paginator:1,
                 category:0,
-                searchText:null
+                searchText:null,
+                fullscreenI:false
             }
         },
         created() {
+            
+         document.onkeydown = function(evt) {
+    evt = evt || window.event;
+    var isEscape = false;
+    if ("key" in evt) {
+        isEscape = (evt.key == "Escape" || evt.key == "Esc");
+    } else {
+        isEscape = (evt.keyCode == 27);
+    }
+    if (isEscape) {
+        alert("Escape");
+    }
+};   
             /*
              setInterval(() => {
              
@@ -212,7 +226,13 @@
 
         },
         methods: {
+            fullscreenIframe(){
+                if(this.fullscreenI){
+                    return "fullscreen";
+                }
+            },
             fullscreen(){
+                this.fullscreenI=true;
                  var
           el = document.documentElement
         , rfs =
