@@ -113,7 +113,7 @@
                     <div class="col-12 container-video-frame" >
                         <iframe id="myvideo" :class="fullscreenIframe()" width="100%" height="500" :data-src="frameVideo" :src="frameVideo" frameborder="0" allowfullscreen="true"></iframe>
                    <hr/>
-                   <button v-if="!fullscreenI" v-on:click="fullscreen" class="btn btn-default btn-light">FullScreen</button>            
+                   <!--<button v-if="!fullscreenI" v-on:click="fullscreen" class="btn btn-default btn-light">FullScreen</button>  -->          
 
                     </div>
                     </div>
