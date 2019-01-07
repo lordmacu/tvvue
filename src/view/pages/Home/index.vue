@@ -238,20 +238,26 @@
               try {
 
       var el = document.documentElement;
-alert("aqui");
 if (el.requestFullscreen) {
     
-    alert("aqui");
+    alert("aquientro1");
 
 		// W3C standard
 		el.requestFullscreen();
 	} else if (el.mozRequestFullScreen) {
+            
+                alert("aquientro2");
+
 		// Firefox 10+, Firefox for Android
 		el.mozRequestFullScreen();
 	} else if (el.msRequestFullscreen) {
+                            alert("aquientro3");
+
 		// IE 11+
 		el.msRequestFullscreen();
 	} else if (el.webkitRequestFullscreen) {
+                                        alert("aquientro4");
+
 		if (navigator.userAgent.indexOf('Safari') != -1
 				&& navigator.userAgent.indexOf('Chrome') == -1) {
 			// Safari 6+
@@ -261,6 +267,8 @@ if (el.requestFullscreen) {
 			el.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
 		}
 	} else if (el.webkitRequestFullScreen) {
+                                                    alert("aquientro5");
+
 		if (navigator.userAgent.indexOf('Safari') != -1
 				&& navigator.userAgent.indexOf('Chrome') == -1) {
 			// Safari 5.1+
