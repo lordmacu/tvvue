@@ -24,9 +24,9 @@
                         <td></td>
                     </tr>
                      <tr>
-                        <td><button v-on:click="jumpStep(2)" >Derecha</button></td>
+                        <td><button v-on:click="jumpStep(2)" >Izquierda</button></td>
                         <td class="container-play"><button class="play-button" v-on:click="jumpUp()" >Play</button></td>
-                        <td><button v-on:click="jumpStep(1)" >Izquierda</button></td>
+                        <td><button v-on:click="jumpStep(1)" > Derecha</button></td>
                     </tr>
                      <tr>
                         <td></td>
