@@ -237,18 +237,36 @@
               
               try {
 
-      var elem = document.documentElement;
+      var el = document.documentElement;
 
-if (elem.requestFullscreen) {
-    elem.requestFullscreen();
-  } else if (elem.mozRequestFullScreen) { /* Firefox */
-    elem.mozRequestFullScreen();
-  } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-    elem.webkitRequestFullscreen();
-  } else if (elem.msRequestFullscreen) { /* IE/Edge */
-    elem.msRequestFullscreen();
-  }
-     
+if (el.requestFullscreen) {
+		// W3C standard
+		el.requestFullscreen();
+	} else if (el.mozRequestFullScreen) {
+		// Firefox 10+, Firefox for Android
+		el.mozRequestFullScreen();
+	} else if (el.msRequestFullscreen) {
+		// IE 11+
+		el.msRequestFullscreen();
+	} else if (el.webkitRequestFullscreen) {
+		if (navigator.userAgent.indexOf('Safari') != -1
+				&& navigator.userAgent.indexOf('Chrome') == -1) {
+			// Safari 6+
+			el.webkitRequestFullscreen();
+		} else {
+			// Chrome 20+, Opera 15+, Chrome for Android, Opera Mobile 16+
+			el.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+		}
+	} else if (el.webkitRequestFullScreen) {
+		if (navigator.userAgent.indexOf('Safari') != -1
+				&& navigator.userAgent.indexOf('Chrome') == -1) {
+			// Safari 5.1+
+			el.webkitRequestFullScreen();
+		} else {
+			// Chrome 15+
+			el.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+		}
+	}
 
 
 }
