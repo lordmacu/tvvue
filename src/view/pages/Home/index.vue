@@ -5,6 +5,11 @@
 
 
     <div class="container-fluid" >
+        
+         <loading :active.sync="isLoading" 
+        :can-cancel="true" 
+        :on-cancel="onCancel"
+        :is-full-page="fullPage"></loading>
 
         <div class="row">
             <div class="col-3" v-if="!fullscreenI">
@@ -133,7 +138,9 @@
 
 <script>
 
-
+ import Loading from 'vue-loading-overlay';
+    // Import stylesheet
+    import 'vue-loading-overlay/dist/vue-loading.css';
     export default {
         name: 'Home',
         data() {
@@ -151,8 +158,13 @@
                 fullscreenI: false,
                 oldX:0,
                 oldY:0,
-                turnOnArrowsControl:true
+                turnOnArrowsControl:true,
+                isLoading: false,
+                fullPage: true
             }
+        },
+        components: {
+            Loading
         },
         created() {
             if(this.isSmartTV()){
@@ -247,7 +259,9 @@
                     this.turnOnArrowsControl=false;
                 }
             },
-            
+            onCancel(){
+                
+            },
              isSmartTV() {
                     return navigator.userAgent.search(/TV/i) >= 0;
                 },
@@ -331,6 +345,7 @@
                     return false;
                 }
                 this.movies = [];
+                this.isLoading=true;
                 this.axios.get("https://www.alquilerdirecto.com.ar/searchMovie?search=" + this.searchText, ).then((response) => {
 
                     var responseHtml = $(response.data);
@@ -363,8 +378,9 @@
 
                     this.preview = this.movies[0];
 
-                    setTimeout(function () {
+                    setTimeout(()=> {
                         navigation.refresh();
+                        this.isLoading=false;
 
                     }, 1000);
 
@@ -400,6 +416,7 @@
             },
 
             loadHome() {
+                                        this.isLoading=true;
 
                 this.axios.get("https://alquilerdirecto.com.ar/getHomeMovies?paginator=" + this.paginator + "&category=" + this.category, ).then((response) => {
 
@@ -433,9 +450,9 @@
 
                     this.preview = this.movies[0];
 
-                    setTimeout(function () {
+                    setTimeout(()=> {
                         navigation.refresh();
-
+                                        this.isLoading=false;
                     }, 1000);
 
 
@@ -468,6 +485,7 @@
             },
             loadUrl(url) {
 
+                                        this.isLoading=true;
 
 
                 this.axios.get("https://alquilerdirecto.com.ar/getUrl?url=" + encodeURI(url), ).then((response) => {
@@ -499,6 +517,7 @@
 
                     this.showVideoIdentifier(this.sourcesVideo[0].identifier);
 
+                                        this.isLoading=false;
 
 
                 })
