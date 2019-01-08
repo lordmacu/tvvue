@@ -116,7 +116,7 @@
                     <div class="row">
 
                         <div class="col-12 container-video-frame" >
-                            <iframe id="myvideo" :class="fullscreenIframe()" width="80%" height="500" :data-src="frameVideo" :src="frameVideo" frameborder="0" allowfullscreen="true"></iframe>
+                            <iframe id="myvideo" :class="fullscreenIframe()"  @error="loadedErrorVideo"    v-on:load="loadedVideo" width="80%" height="500" :data-src="frameVideo" :src="frameVideo" frameborder="0" allowfullscreen="true"></iframe>
                             <hr/>
                             <!--<button v-if="!fullscreenI" v-on:click="fullscreen" class="btn btn-default btn-light">FullScreen</button>  -->          
 
@@ -251,7 +251,13 @@
 
         },
         methods: {
-            
+            loadedErrorVideo(){
+                this.isLoading=false;
+                alert("error cargando video");
+            },
+            loadedVideo(){
+                this.isLoading=false;
+            },
             mouseInVideoContainer(enterMouse){
                 if(enterMouse==1){
                     this.turnOnArrowsControl=true;
@@ -517,12 +523,12 @@
 
                     this.showVideoIdentifier(this.sourcesVideo[0].identifier);
 
-                                        this.isLoading=false;
 
 
                 })
             },
             showVideoIdentifier(source) {
+                                this.isLoading=true;
 
                 for (var i = 0; i < this.players.length; i++) {
                     if (this.players[i].id == source) {
