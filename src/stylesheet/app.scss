@@ -128,6 +128,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
     overflow-y: auto;
 }
 
+.vld-overlay.is-full-page {
+    z-index: 999999999 !important;
+    position: fixed;
+}
+
 .container-video{
         width: 80%;
     background-color: black;
