@@ -5,11 +5,11 @@
 
 
     <div class="container-fluid" >
-        
-         <loading :active.sync="isLoading" 
-        :can-cancel="true" 
-        :on-cancel="onCancel"
-        :is-full-page="fullPage"></loading>
+
+        <loading :active.sync="isLoading" 
+            :can-cancel="true" 
+            :on-cancel="onCancel"
+            :is-full-page="fullPage"></loading>
 
         <div class="row">
             <div class="col-3" v-if="!fullscreenI">
@@ -70,6 +70,7 @@
                                 <button class="btn btn-default btn-light" v-on:click="newMovies()">Estrenos</button>
                                 <button class="btn btn-default btn-light" v-on:click="ranking()">Ranking</button>
                                 <button class="btn btn-default btn-light" v-on:click="popular()">Mas vistas</button>
+                                <button class="btn btn-default btn-light" v-on:click="series()">Series</button>
 
                             </div>
 
@@ -138,7 +139,7 @@
 
 <script>
 
- import Loading from 'vue-loading-overlay';
+    import Loading from 'vue-loading-overlay';
     // Import stylesheet
     import 'vue-loading-overlay/dist/vue-loading.css';
     export default {
@@ -156,9 +157,9 @@
                 category: 0,
                 searchText: null,
                 fullscreenI: false,
-                oldX:0,
-                oldY:0,
-                turnOnArrowsControl:true,
+                oldX: 0,
+                oldY: 0,
+                turnOnArrowsControl: true,
                 isLoading: false,
                 fullPage: true
             }
@@ -167,37 +168,37 @@
             Loading
         },
         created() {
-            if(this.isSmartTV()){
-                 var bodyElement = document.querySelector("body");
+            if (this.isSmartTV()) {
+                var bodyElement = document.querySelector("body");
                 //bodyElement.addEventListener("mousemove", this.captureMouseMove, false);
-            
+
             }
-            
 
 
-             window.addEventListener('keydown', (e) => {
-      if (e.keyCode == 54) {
-        this.jumpStep(1)
-      }else  if (e.keyCode == 52) {
-        this.jumpStep(2)
-      }else if (e.keyCode == 56) {
-       this.jumpDown();
-      }else if (e.keyCode == 48) {
-       this.jumpDown();
-      }else if(e.keyCode == 50){
-          this.jumpUp();
-      }else if(e.keyCode == 53){
-          this.loadVideo();
-      }else if(e.keyCode == 55){
-          this.back();
-      }
-      
-      
-      
-      
-      
-    });
-            
+
+            window.addEventListener('keydown', (e) => {
+                if (e.keyCode == 54) {
+                    this.jumpStep(1)
+                } else if (e.keyCode == 52) {
+                    this.jumpStep(2)
+                } else if (e.keyCode == 56) {
+                    this.jumpDown();
+                } else if (e.keyCode == 48) {
+                    this.jumpDown();
+                } else if (e.keyCode == 50) {
+                    this.jumpUp();
+                } else if (e.keyCode == 53) {
+                    this.loadVideo();
+                } else if (e.keyCode == 55) {
+                    this.back();
+                }
+
+
+
+
+
+            });
+
 
             document.onkeydown = function (evt) {
                 evt = evt || window.event;
@@ -243,71 +244,74 @@
 
             this.paginator = 1;
 
+            if (this.$route.query.url) {
+                this.category = this.$route.query.url;
+
+            }
             this.loadHome();
 
-            console.log("aqui mano", $);
         },
         computed: {
 
         },
         methods: {
-            loadedErrorVideo(){
-                this.isLoading=false;
+            loadedErrorVideo() {
+                this.isLoading = false;
                 alert("error cargando video");
             },
-            loadedVideo(){
-                this.isLoading=false;
+            loadedVideo() {
+                this.isLoading = false;
             },
-            mouseInVideoContainer(enterMouse){
-                if(enterMouse==1){
-                    this.turnOnArrowsControl=true;
-                }else{
-                    this.turnOnArrowsControl=false;
+            mouseInVideoContainer(enterMouse) {
+                if (enterMouse == 1) {
+                    this.turnOnArrowsControl = true;
+                } else {
+                    this.turnOnArrowsControl = false;
                 }
             },
-            onCancel(){
-                
+            onCancel() {
+
             },
-             isSmartTV() {
-                    return navigator.userAgent.search(/TV/i) >= 0;
-                },
+            isSmartTV() {
+                return navigator.userAgent.search(/TV/i) >= 0;
+            },
 
-            captureMouseMove($event){
-      let directionX = 0, directionY = 0, diffX = 0, diffY = 0;
-      if ($event.pageX < this.oldX) {
-          directionX = "left"
-          diffX = this.oldX - $event.pageX;
-      } else if ($event.pageX > this.oldX) {
-          directionX = "right"
-          diffX = $event.pageX - this.oldX;
-      }
+            captureMouseMove($event) {
+                let directionX = 0, directionY = 0, diffX = 0, diffY = 0;
+                if ($event.pageX < this.oldX) {
+                    directionX = "left"
+                    diffX = this.oldX - $event.pageX;
+                } else if ($event.pageX > this.oldX) {
+                    directionX = "right"
+                    diffX = $event.pageX - this.oldX;
+                }
 
-      if ($event.pageY < this.oldY) {
-          directionY = "top"
-          diffY = this.oldY - $event.pageY;
-      } else if ($event.pageY > this.oldY) {
-          directionY = "bottom";
-          diffY = $event.pageY - this.oldY;
-      }
+                if ($event.pageY < this.oldY) {
+                    directionY = "top"
+                    diffY = this.oldY - $event.pageY;
+                } else if ($event.pageY > this.oldY) {
+                    directionY = "bottom";
+                    diffY = $event.pageY - this.oldY;
+                }
 
-      this.oldX = $event.pageX;
-      this.oldY = $event.pageY;
-      
-      if(this.turnOnArrowsControl==true){
-           if(directionX=="left"){
-                this.jumpStep(2) 
-            }else  if(directionX=="right"){
-                this.jumpStep(1) 
-            }else  if(directionY=="top"){
-                this.jumpUp() 
-            }else  if(directionY=="bottom"){
-                this.jumpDown() 
-            }
-      }
-     
+                this.oldX = $event.pageX;
+                this.oldY = $event.pageY;
 
-    },
-            
+                if (this.turnOnArrowsControl == true) {
+                    if (directionX == "left") {
+                        this.jumpStep(2)
+                    } else if (directionX == "right") {
+                        this.jumpStep(1)
+                    } else if (directionY == "top") {
+                        this.jumpUp()
+                    } else if (directionY == "bottom") {
+                        this.jumpDown()
+                    }
+                }
+
+
+            },
+
             fullscreenIframe() {
                 if (this.fullscreenI) {
                     return "fullscreen";
@@ -351,7 +355,7 @@
                     return false;
                 }
                 this.movies = [];
-                this.isLoading=true;
+                this.isLoading = true;
                 this.axios.get("https://www.alquilerdirecto.com.ar/searchMovie?search=" + this.searchText, ).then((response) => {
 
                     var responseHtml = $(response.data);
@@ -362,8 +366,15 @@
                         var link = item.find("a").attr("href");
                         var title = item.find(".Title").html();
                         var year = item.find(".Year").html();
-                        var image = item.find("figure img").attr("src").replace("-160x242", "");
-                        var image = image.replace("-55x85", "");
+                        
+                        
+                        
+                        var image = item.find("figure img").attr("data-src")
+                        if(!!image){
+                            var image = image.replace("-160x242", "");
+                            var image = image.replace("-55x85", "");
+
+                        } 
                         var infoTime = item.find(".Info .Time").html();
                         var infoQlty = item.find(".Info .Qlty").html();
                         var description = item.find(".Description").html();
@@ -384,9 +395,9 @@
 
                     this.preview = this.movies[0];
 
-                    setTimeout(()=> {
+                    setTimeout(() => {
                         navigation.refresh();
-                        this.isLoading=false;
+                        this.isLoading = false;
 
                     }, 1000);
 
@@ -404,25 +415,45 @@
 
                 this.paginator = 1;
                 this.category = "estrenos";
-                this.loadHome();
+                // this.loadHome();
+                window.open("/tvvue/dist/#/?url=estrenos")
+
             },
             ranking() {
                 this.movies = [];
 
                 this.paginator = 1;
                 this.category = "peliculas-mas-valoradas";
-                this.loadHome();
+                window.open("/tvvue/dist/#/?url=peliculas-mas-valoradas")
+
+                //this.loadHome();
             },
             popular() {
                 this.movies = [];
 
                 this.paginator = 1;
                 this.category = "peliculas-mas-vistas";
-                this.loadHome();
+                window.open("/tvvue/dist/#/?url=peliculas-mas-vistas")
+
+                // this.loadHome();
+            },
+            series() {
+                this.movies = [];
+
+                this.paginator = 0;
+                this.category = "serie";
+                window.open("/tvvue/dist/#/?url=serie")
+
+                // window.location.href="?url=serie"; 
+                //this.$route.router.go("?url=serie");
+
+                //  this.loadHome();
             },
 
             loadHome() {
-                                        this.isLoading=true;
+
+
+                this.isLoading = true;
 
                 this.axios.get("https://alquilerdirecto.com.ar/getHomeMovies?paginator=" + this.paginator + "&category=" + this.category, ).then((response) => {
 
@@ -430,35 +461,52 @@
                     var listMovies = responseHtml.find(".MovieList li");
 
                     for (var i = 0; i < listMovies.length; i++) {
+
+
                         var item = $(listMovies[i]);
                         var link = item.find("a").attr("href");
                         var title = item.find(".Title").html();
                         var year = item.find(".Year").html();
-                        var image = item.find("figure img").attr("src").replace("-160x242", "");
-                        var image = image.replace("-55x85", "");
+
+                var image = item.find("figure img").attr("data-src")
+
+                                if(!!image){
+                                    image=image.replace("-160x242", "");;
+                                    var image = image.replace("-55x85", "");
+
+                                }
                         var infoTime = item.find(".Info .Time").html();
                         var infoQlty = item.find(".Info .Qlty").html();
                         var description = item.find(".Description").html();
 
-                        this.movies.push({
-                            link: link,
-                            title: title,
-                            year: year,
-                            image: image,
-                            infoTime: infoTime,
-                            infoQlty: infoQlty,
-                            description: description,
-                            current: false,
-                            index: i
-                        });
+                        if (infoQlty) {
+
+                            if (link != "#") {
+                                this.movies.push({
+                                    link: link,
+                                    title: title,
+                                    year: year,
+                                    image: image,
+                                    infoTime: infoTime,
+                                    infoQlty: infoQlty,
+                                    description: description,
+                                    current: false,
+                                    index: i
+                                });
+                            }
+
+                        }
+
+
+
 
                     }
 
                     this.preview = this.movies[0];
 
-                    setTimeout(()=> {
+                    setTimeout(() => {
                         navigation.refresh();
-                                        this.isLoading=false;
+                        this.isLoading = false;
                     }, 1000);
 
 
@@ -491,7 +539,7 @@
             },
             loadUrl(url) {
 
-                                        this.isLoading=true;
+                this.isLoading = true;
 
 
                 this.axios.get("https://alquilerdirecto.com.ar/getUrl?url=" + encodeURI(url), ).then((response) => {
@@ -499,36 +547,120 @@
 
                     var players = responseHtml.find(".TPlayerTb");
 
-                    for (var ifr = 0; ifr < players.length; ifr++) {
 
-                        var iframe = $(players[ifr]);
 
-                        this.players.push({id: iframe.attr("id"), frame: iframe.find("iframe").attr("data-src")})
+                    var episodes = responseHtml.find(".all-episodes");
+
+
+
+
+
+                    if (players.length > 0) {
+                        for (var ifr = 0; ifr < players.length; ifr++) {
+
+                            var iframe = $(players[ifr]);
+
+                            this.players.push({id: iframe.attr("id"), frame: iframe.find("iframe").attr("data-src")})
+                        }
+
+                        var videosResources = responseHtml.find(".open_submenu ul li");
+                        this.sourcesVideo = [];
+                        for (var i = 0; i < videosResources.length; i++) {
+
+                            var resource = $(videosResources[i]);
+                            var identifier = resource.attr("data-tplayernv");
+                            var nameResource = resource.find("span span").html();
+                            var image = resource.find("img").attr("data-src");
+
+                            this.sourcesVideo.push({identifier: identifier, nameResource: nameResource, image: image});
+
+
+                        }
+
+
+                        this.showVideoIdentifier(this.sourcesVideo[0].identifier);
+
+
+                    } else {
+
+                        if (episodes.length > 0) {
+                            this.isLoading = false;
+
+                    this.movies = [];
+                            for (var s = 0; s < episodes.length; s++) {
+                                var listEpisodes = $(episodes[s]).find("li");
+                                for (var e = 0; e < listEpisodes.length; e++) {
+                                    var item = $(listEpisodes[e]);
+                                    var link = item.find("a").attr("href");
+                                    var title = item.find(".Title").html();
+                                    var year = "";
+                                    var image = item.find("figure img").attr("data-src").replace("-160x242", "");
+                                    var image = image.replace("-55x85", "");
+                                    var infoTime = "";
+                                    var infoQlty = "T " + (s + 1) + " - " + title;
+                                    var description = "";
+                                   
+
+                                    this.movies.push({
+                                        link: link,
+                                        title: title,
+                                        year: year,
+                                        image: image,
+                                        infoTime: infoTime,
+                                        infoQlty: infoQlty,
+                                        description: description,
+                                        current: false,
+                                        index: i
+                                    });
+                                }
+                            }
+
+                            this.preview = this.movies[0];
+
+                            setTimeout(() => {
+                                navigation.refresh();
+                                this.isLoading = false;
+
+                            }, 1000);
+                        }
+
+
+
+                        /*    for (var i = 0; i < listMovies.length; i++) {
+                         var item = $(listMovies[i]);
+                         var link = item.find("a").attr("href");
+                         var title = item.find(".Title").html();
+                         var year = item.find(".Year").html();
+                         var image = item.find("figure img").attr("src").replace("-160x242", "");
+                         var image = image.replace("-55x85", "");
+                         var infoTime = item.find(".Info .Time").html();
+                         var infoQlty = item.find(".Info .Qlty").html();
+                         var description = item.find(".Description").html();
+                         
+                         this.movies.push({
+                         link: link,
+                         title: title,
+                         year: year,
+                         image: image,
+                         infoTime: infoTime,
+                         infoQlty: infoQlty,
+                         description: description,
+                         current: false,
+                         index: i
+                         });
+                         
+                         }
+                         
+                         */
+
                     }
-
-                    var videosResources = responseHtml.find(".open_submenu ul li");
-                    this.sourcesVideo = [];
-                    for (var i = 0; i < videosResources.length; i++) {
-
-                        var resource = $(videosResources[i]);
-                        var identifier = resource.attr("data-tplayernv");
-                        var nameResource = resource.find("span span").html();
-                        var image = resource.find("img").attr("src");
-
-                        this.sourcesVideo.push({identifier: identifier, nameResource: nameResource, image: image});
-
-
-                    }
-
-
-                    this.showVideoIdentifier(this.sourcesVideo[0].identifier);
 
 
 
                 })
             },
             showVideoIdentifier(source) {
-                                this.isLoading=true;
+                this.isLoading = true;
 
                 for (var i = 0; i < this.players.length; i++) {
                     if (this.players[i].id == source) {
@@ -554,11 +686,17 @@
 
             },
             checkZoom(movie) {
-                if (movie.index == this.preview.index) {
-                    return "col-md-3 col-lg-3 col-12 movie-container  zoom";
-                } else {
-                    return "col-md-3 col-lg-3 col-12 movie-container";
+                if (movie) {
+                    if (this.preview) {
+                        if (movie.index == this.preview.index) {
+                            return "col-md-3 col-lg-3 col-12 movie-container  zoom";
+                        } else {
+                            return "col-md-3 col-lg-3 col-12 movie-container";
+                        }
+                    }
+
                 }
+
             },
             overmouse(movie, index) {
 
@@ -590,7 +728,6 @@
             jump(h) {
                 var top = document.getElementById(h).offsetTop;
                 var top = top - 60;
-                console.log(top);
                 window.scrollTo(0, top);
 
             },
